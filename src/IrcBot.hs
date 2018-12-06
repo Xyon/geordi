@@ -172,9 +172,8 @@ strip_color_codes = apply_eraser color_code
 version_response :: String
 version_response = "Geordi C++ bot - http://www.eelis.net/geordi/"
 
-strip_discord :: String → String → IO (String)
+strip_discord :: String → String
 strip_discord s = do
-    putStrLn "Applying Regex"
     subRegex r s "" where r = mkRegex "<\\(?:[a-zA-Z0-9 ])*\\SI> "
 
 on_msg :: (Functor m, Monad m) ⇒
@@ -200,7 +199,7 @@ on_msg eval cfg@IrcBotConfig{..} full_size m@(IRC.Message prefix c) = execWriter
             if null s then no_output_msg else do_censor cfg s
       mem@ChannelMemory{..} ← (`orElse` emptyChannelMemory cfg) . Map.lookup wher . lift get
       case (dropWhile isSpace . is_request cfg w strippedTxt) of
-        Nothing → lift $ mapState' $ insert (wher, mem{last_nonrequest = strippedTxt})
+        Nothing → lift $ mapState' $ insert (wher, mem{last_nonrequest = txt'})
         Just r' → case request_allowed cfg who muser mserver w of
          Deny reason → maybeM reason reply
          Allow → do
