@@ -28,6 +28,7 @@ import Util ((.), elemBy, caselessStringEq, maybeM, describe_new_output,
   orElse, full_evaluate, withResource, mapState',
   strip_utf8_bom, none, takeBack, replaceInfix, classify_diagnostic)
 import Sys (rate_limiter)
+import Debug.Trace (trace)
 
 import Prelude hiding ((.))
 import Prelude.Unicode hiding ((∈))
@@ -174,7 +175,7 @@ version_response = "Geordi C++ bot - http://www.eelis.net/geordi/"
 
 strip_discord :: String → String
 strip_discord s = do
-    subRegex r s "" where r = mkRegex "<\\(?:[a-zA-Z0-9 ])*\\SI> "
+    trace("Applying regex") (subRegex r s "" where r = mkRegex "<\\(?:[a-zA-Z0-9 ])*\\SI> ")
 
 on_msg :: (Functor m, Monad m) ⇒
   (String → Request.Context → [(String, String)] → m Request.Response) → IrcBotConfig → Bool → IRC.Message → StateT ChannelMemoryMap m [IRC.Command]
@@ -193,6 +194,7 @@ on_msg eval cfg@IrcBotConfig{..} full_size m@(IRC.Message prefix c) = execWriter
         private = elemBy caselessStringEq to [nick, alternate_nick]
         w = if private then Private else InChannel to
         strippedTxt = if who == "of-discord" then strip_discord txt else txt
+        trace ("Stripped message is " ++ show strippedTxt)
         wher = if private then who else to
         reply s = send $ PrivMsg wher $ take max_response_length $
             (if private then id else (replaceInfix "nick" who channel_response_prefix ++)) $
