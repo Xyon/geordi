@@ -172,6 +172,10 @@ strip_color_codes = apply_eraser color_code
 version_response :: String
 version_response = "Geordi C++ bot - http://www.eelis.net/geordi/"
 
+strip_discord :: String -> String
+strip_discord = do
+    discordRegex r s "" where r = mkRegex "<\\ETX07(?:\w)*\\SI>\s"
+
 on_msg :: (Functor m, Monad m) ⇒
   (String → Request.Context → [(String, String)] → m Request.Response) → IrcBotConfig → Bool → IRC.Message → StateT ChannelMemoryMap m [IRC.Command]
 on_msg eval cfg@IrcBotConfig{..} full_size m@(IRC.Message prefix c) = execWriterT $ do
@@ -188,6 +192,7 @@ on_msg eval cfg@IrcBotConfig{..} full_size m@(IRC.Message prefix c) = execWriter
         txt = filter isPrint $ strip_color_codes $ strip_utf8_bom txt'
         private = elemBy caselessStringEq to [nick, alternate_nick]
         w = if private then Private else InChannel to
+        txt = if who == "of-discord" then strip_discord txt else txt
         wher = if private then who else to
         reply s = send $ PrivMsg wher $ take max_response_length $
             (if private then id else (replaceInfix "nick" who channel_response_prefix ++)) $
