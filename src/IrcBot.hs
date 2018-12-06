@@ -189,16 +189,15 @@ on_msg eval cfg@IrcBotConfig{..} full_size m@(IRC.Message prefix c) = execWriter
     PrivMsg _ ('\1':_) → return ()
     PrivMsg to txt' | Just (NickName who muser mserver) ← prefix → do
       let
-        txt = filter isPrint $ strip_color_codes $ strip_utf8_bom txt'
+        txt = filter isPrint $ strip_color_codes $ strip_utf8_bom $ strip_discord txt'
         private = elemBy caselessStringEq to [nick, alternate_nick]
         w = if private then Private else InChannel to
-        strippedTxt = if who == "of-discord" then strip_discord txt else txt
         wher = if private then who else to
         reply s = send $ PrivMsg wher $ take max_response_length $
             (if private then id else (replaceInfix "nick" who channel_response_prefix ++)) $
             if null s then no_output_msg else do_censor cfg s
       mem@ChannelMemory{..} ← (`orElse` emptyChannelMemory cfg) . Map.lookup wher . lift get
-      case (dropWhile isSpace . is_request cfg w strippedTxt) of
+      case (dropWhile isSpace . is_request cfg w txt) of
         Nothing → lift $ mapState' $ insert (wher, mem{last_nonrequest = txt'})
         Just r' → case request_allowed cfg who muser mserver w of
          Deny reason → maybeM reason reply
