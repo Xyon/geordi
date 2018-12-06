@@ -172,9 +172,9 @@ strip_color_codes = apply_eraser color_code
 version_response :: String
 version_response = "Geordi C++ bot - http://www.eelis.net/geordi/"
 
-strip_discord :: String → String
+strip_discord :: String → String -> IO
 strip_discord s = do
-    putStrLn "Applying regex"
+    putStrLn "Applying Regex"
     subRegex r s "" where r = mkRegex "<\\(?:[a-zA-Z0-9 ])*\\SI> "
 
 on_msg :: (Functor m, Monad m) ⇒
