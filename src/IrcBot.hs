@@ -19,7 +19,7 @@ import Control.Monad.State (execStateT, lift, StateT, get)
 import Control.Monad.Writer (execWriterT, tell)
 import System.Console.GetOpt (OptDescr(..), ArgDescr(..), ArgOrder(..), getOpt, usageInfo)
 import System.Locale.SetLocale (setLocale, Category(..))
-import Text.Regex (Regex, subRegex, mkRegexWithOpts) -- Todo: Text.Regex truncates Char's >256. Get rid of it.
+import Text.Regex (Regex, subRegex, mkRegex, mkRegexWithOpts) -- Todo: Text.Regex truncates Char's >256. Get rid of it.
 import Data.Char (isSpace, isPrint, isDigit)
 import Data.List (isSuffixOf, isPrefixOf)
 import Data.Map (Map)
@@ -172,8 +172,8 @@ strip_color_codes = apply_eraser color_code
 version_response :: String
 version_response = "Geordi C++ bot - http://www.eelis.net/geordi/"
 
-strip_discord :: String -> String
-strip_discord = do
+strip_discord :: String → String
+strip_discord s = do
     discordRegex r s "" where r = mkRegex "<\\(?:[a-zA-Z0-9 ])*\\SI> "
 
 on_msg :: (Functor m, Monad m) ⇒
