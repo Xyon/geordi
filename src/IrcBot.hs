@@ -174,7 +174,7 @@ version_response = "Geordi C++ bot - http://www.eelis.net/geordi/"
 
 strip_discord :: String -> String
 strip_discord = do
-    discordRegex r s "" where r = mkRegex "<\\ETX07(?:\w)*\\SI>\s"
+    discordRegex r s "" where r = mkRegex "<\\(?:[a-zA-Z0-9 ])*\\SI> "
 
 on_msg :: (Functor m, Monad m) ⇒
   (String → Request.Context → [(String, String)] → m Request.Response) → IrcBotConfig → Bool → IRC.Message → StateT ChannelMemoryMap m [IRC.Command]
