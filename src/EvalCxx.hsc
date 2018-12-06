@@ -162,7 +162,7 @@ compile_env =
 
 stdDigits :: CxxStandard -> String
 stdDigits (Cxx y) = drop 2 (show y)
-stdDigits CxxExperimental = "2a"
+stdDigits CxxExperimental = "03"
 
 prog_env :: CxxStandard -> [(String, String)]
 prog_env std =
