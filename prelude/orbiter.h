@@ -1,3 +1,4 @@
+#include <limits>
 #include "windef.h"
 // ======================================================================
 /// \defgroup constants Some useful general constants
