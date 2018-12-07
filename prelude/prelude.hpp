@@ -18,6 +18,7 @@
 #include "evil_casts.hpp"
 #include "geordi.hpp"
 #include "bark.hpp"
+#include "orbiter.h"
 
 #include <algorithm>
 #include <bitset>
