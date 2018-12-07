@@ -298,6 +298,8 @@ DECLARE_HANDLE(HWND);
 
 /* Handle types that must remain interchangeable even with strict on */
 
+typedef PVOID HANDLE;
+
 typedef HINSTANCE HMODULE;
 typedef HANDLE HGDIOBJ;
 typedef HANDLE HGLOBAL;
