@@ -249,8 +249,6 @@ typedef unsigned int    ULONG,      *PULONG;
 # define DECL_WINELIB_TYPE_AW(type)  typedef WINELIB_NAME_AW(type) type;
 #endif
 
-#include <winnt.h>
-
 /* Polymorphic types */
 
 typedef UINT_PTR        WPARAM;
