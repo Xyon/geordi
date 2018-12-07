@@ -250,6 +250,7 @@ typedef unsigned int    ULONG,      *PULONG;
 #endif
 
 typedef unsigned int UINT_PTR;
+typedef unsigned int LONG_PTR;
 
 /* Polymorphic types */
 
