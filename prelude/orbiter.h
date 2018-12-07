@@ -1417,3 +1417,4 @@ inline VECTOR3 POINTERTOREF (VECTOR3 *p)
 	return v;
 }
 
+};
