@@ -178,7 +178,7 @@ traceThis x = trace (show x) x
 
 strip_discord :: String → String
 strip_discord s = do
-    subRegex r (traceThis s) "" where r = mkRegex "^<[a-zA-Z0-9 ]+>"
+    subRegex r (traceThis s) "" where r = mkRegex "^<[a-zA-Z0-9 ]+\SI> "
 
 on_msg :: (Functor m, Monad m) ⇒
   (String → Request.Context → [(String, String)] → m Request.Response) → IrcBotConfig → Bool → IRC.Message → StateT ChannelMemoryMap m [IRC.Command]
