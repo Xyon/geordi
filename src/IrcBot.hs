@@ -173,9 +173,12 @@ strip_color_codes = apply_eraser color_code
 version_response :: String
 version_response = "Geordi C++ bot - http://www.eelis.net/geordi/"
 
+traceThis :: (Show a) => a -> a
+traceThis x = trace (show x) x
+
 strip_discord :: String → String
 strip_discord s = do
-    subRegex r s "" where r = mkRegex "^<[a-zA-Z0-9 ]+>"
+    subRegex r (traceThis s) "" where r = mkRegex "^<[a-zA-Z0-9 ]+>"
 
 on_msg :: (Functor m, Monad m) ⇒
   (String → Request.Context → [(String, String)] → m Request.Response) → IrcBotConfig → Bool → IRC.Message → StateT ChannelMemoryMap m [IRC.Command]
@@ -190,7 +193,7 @@ on_msg eval cfg@IrcBotConfig{..} full_size m@(IRC.Message prefix c) = execWriter
     PrivMsg _ ('\1':_) → return ()
     PrivMsg to txt' | Just (NickName who muser mserver) ← prefix → do
       let
-        txt = filter isPrint $ strip_discord | trace("discord " ++ show txt) False = undefined $ strip_color_codes $ strip_utf8_bom txt'
+        txt = filter isPrint $ strip_discord $ strip_color_codes $ strip_utf8_bom txt'
         private = elemBy caselessStringEq to [nick, alternate_nick]
         w = if private then Private else InChannel to
         wher = if private then who else to
