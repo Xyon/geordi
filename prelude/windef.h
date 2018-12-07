@@ -297,7 +297,7 @@ DECLARE_HANDLE(HWINSTA);
 DECLARE_HANDLE(HWND);
 
 /* Handle types that must remain interchangeable even with strict on */
-
+typedef void *PVOID;
 typedef PVOID HANDLE;
 
 typedef HINSTANCE HMODULE;
