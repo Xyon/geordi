@@ -24,6 +24,7 @@ import Data.Char (isSpace, isPrint, isDigit)
 import Data.List (isSuffixOf, isPrefixOf)
 import Data.Map (Map)
 import Data.SetOps
+import Debug.Trace (trace)
 import Util ((.), elemBy, caselessStringEq, maybeM, describe_new_output,
   orElse, full_evaluate, withResource, mapState',
   strip_utf8_bom, none, takeBack, replaceInfix, classify_diagnostic)
@@ -189,7 +190,7 @@ on_msg eval cfg@IrcBotConfig{..} full_size m@(IRC.Message prefix c) = execWriter
     PrivMsg _ ('\1':_) → return ()
     PrivMsg to txt' | Just (NickName who muser mserver) ← prefix → do
       let
-        txt = filter isPrint $ strip_discord $ strip_color_codes $ strip_utf8_bom txt'
+        txt = filter isPrint $ strip_discord | trace("discord " ++ show txt) False = undefined $ strip_color_codes $ strip_utf8_bom txt'
         private = elemBy caselessStringEq to [nick, alternate_nick]
         w = if private then Private else InChannel to
         wher = if private then who else to
