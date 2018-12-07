@@ -1,5 +1,4 @@
-typedef unsigned short WORD;
-
+#include "windef.h"
 // ======================================================================
 /// \defgroup constants Some useful general constants
 // ======================================================================
