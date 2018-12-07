@@ -327,6 +327,7 @@ typedef HICON HCURSOR;
 #define HFILE_ERROR     ((HFILE)-1)
 
 typedef long LONG;
+typedef short SHORT;
 
 /* The SIZE structure */
 typedef struct tagSIZE
