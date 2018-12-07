@@ -372,6 +372,8 @@ typedef struct _FILETIME {
 } FILETIME, *PFILETIME, *LPFILETIME;
 #define _FILETIME_
 
+typedef long LONG;
+
 /* The RECT structure */
 typedef struct tagRECT
 {
