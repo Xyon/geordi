@@ -326,6 +326,8 @@ typedef HICON HCURSOR;
 #define MAX_PATH        260
 #define HFILE_ERROR     ((HFILE)-1)
 
+typedef long LONG;
+
 /* The SIZE structure */
 typedef struct tagSIZE
 {
@@ -371,8 +373,6 @@ typedef struct _FILETIME {
 #endif
 } FILETIME, *PFILETIME, *LPFILETIME;
 #define _FILETIME_
-
-typedef long LONG;
 
 /* The RECT structure */
 typedef struct tagRECT
