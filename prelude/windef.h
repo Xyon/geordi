@@ -324,16 +324,6 @@ typedef INT_PTR (CALLBACK *PROC)();
 #define MAKEWORD(low,high)     ((WORD)(((BYTE)((DWORD_PTR)(low) & 0xFF)) | ((WORD)((BYTE)((DWORD_PTR)(high) & 0xFF))) << 8))
 #define MAKELONG(low,high)     ((LONG)(((WORD)((DWORD_PTR)(low) & 0xFFFF)) | ((DWORD)((WORD)((DWORD_PTR)(high) & 0xFFFF))) << 16))
 
-/* min and max macros */
-#ifndef NOMINMAX
-#ifndef max
-#define max(a,b)   (((a) > (b)) ? (a) : (b))
-#endif
-#ifndef min
-#define min(a,b)   (((a) < (b)) ? (a) : (b))
-#endif
-#endif  /* NOMINMAX */
-
 #ifdef MAX_PATH /* Work-around for Mingw */
 #undef MAX_PATH
 #endif /* MAX_PATH */
