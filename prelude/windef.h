@@ -308,18 +308,6 @@ typedef HANDLE GLOBALHANDLE;
 typedef HANDLE LOCALHANDLE;
 typedef HICON HCURSOR;
 
-/* Callback function pointers types */
-
-#ifdef WINE_STRICT_PROTOTYPES
-typedef INT_PTR (CALLBACK *FARPROC)(void);
-typedef INT_PTR (CALLBACK *NEARPROC)(void);
-typedef INT_PTR (CALLBACK *PROC)(void);
-#else
-typedef INT_PTR (CALLBACK *FARPROC)();
-typedef INT_PTR (CALLBACK *NEARPROC)();
-typedef INT_PTR (CALLBACK *PROC)();
-#endif
-
 /* Macros to split words and longs. */
 
 #define LOBYTE(w)              ((BYTE)((DWORD_PTR)(w) & 0xFF))
