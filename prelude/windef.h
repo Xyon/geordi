@@ -266,6 +266,8 @@ typedef DWORD           COLORREF, *LPCOLORREF;
 
 /* Handle types */
 
+#define DECLARE_HANDLE(name) struct name##__{int unused;}; typedef struct name##__ *name
+
 typedef int HFILE;
 DECLARE_HANDLE(HACCEL);
 DECLARE_HANDLE(HBITMAP);
