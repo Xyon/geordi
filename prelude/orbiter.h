@@ -1411,7 +1411,7 @@ inline RECT _R (int left, int top, int right, int bottom)
 inline VECTOR3 POINTERTOREF (VECTOR3 *p)
 {
 	VECTOR3 v;
-	v.x = DBL_MAX;            // flag
+	v.x = std::numeric_limits<double>::max();            // flag
 	*((VECTOR3**)&v.z) = p;   // address
 	v.z = 0.0;
 	return v;
